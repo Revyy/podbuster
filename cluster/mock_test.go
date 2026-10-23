@@ -247,8 +247,7 @@ func TestMockVarietyPods_SeedSymptoms(t *testing.T) {
 
 func TestMockProvider_SetSymptomsEmitsModified(t *testing.T) {
 	m := cluster.NewMockProviderWithPods(cluster.MockVarietyPods("default")...)
-	ctx, cancel := context.WithCancel(context.Background())
-	defer cancel()
+	ctx := t.Context()
 	ch, _ := m.Watch(ctx, "default")
 	for ev := range ch {
 		if ev.Type == cluster.EventSynced {
@@ -275,8 +274,7 @@ func TestMockProvider_ReplacementBootsNotReady(t *testing.T) {
 	m := cluster.NewMockProviderWithPods(cluster.MockVarietyPods("default")...)
 	m.EnableReplacements(20 * time.Millisecond)
 	m.SetBootDelay(150 * time.Millisecond)
-	ctx, cancel := context.WithCancel(context.Background())
-	defer cancel()
+	ctx := t.Context()
 	ch, _ := m.Watch(ctx, "default")
 	for ev := range ch {
 		if ev.Type == cluster.EventSynced {
@@ -309,8 +307,7 @@ func TestMockProvider_ReplacementBootsNotReady(t *testing.T) {
 
 func TestMockProvider_SimulateActivity(t *testing.T) {
 	m := cluster.NewMockProviderWithPods(cluster.MockVarietyPods("default")...)
-	ctx, cancel := context.WithCancel(context.Background())
-	defer cancel()
+	ctx := t.Context()
 	go m.SimulateActivity(ctx, "default", "agent-y", 30*time.Millisecond, "web-c", 30*time.Millisecond)
 	deadline := time.Now().Add(3 * time.Second)
 	for time.Now().Before(deadline) {

@@ -71,7 +71,7 @@ func TestDart_BrakesThenRepeats(t *testing.T) {
 		scene.Update(p)
 	}
 	x, y := d.X, d.Y
-	for i := 0; i < dartBrakeTicks; i++ {
+	for i := range dartBrakeTicks {
 		if d.dart.phase != dartBrake {
 			t.Fatalf("left brake early at tick %d", i)
 		}

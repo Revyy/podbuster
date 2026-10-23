@@ -56,7 +56,7 @@ func (g *Game) drawProjectileImpacts(screen *ebiten.Image) {
 			continue
 		}
 		p.circle(0, 0, float32(2+4*t), fade(tracerMid, 0.6*(1-t)))
-		for i := 0; i < 5; i++ {
+		for i := range 5 {
 			a := math.Pi + (float64(i)-2)*0.5
 			r0, r1 := 2+6*t, 4+10*t
 			p.line(

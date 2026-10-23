@@ -2,6 +2,7 @@ package main
 
 import (
 	"context"
+	"errors"
 	"flag"
 	"log"
 	"time"
@@ -44,7 +45,7 @@ func main() {
 	b := bridge.NewBridge(provider)
 
 	go func() {
-		if err := b.Run(ctx); err != nil && err != context.Canceled {
+		if err := b.Run(ctx); err != nil && !errors.Is(err, context.Canceled) {
 			log.Printf("bridge error: %v", err)
 		}
 	}()

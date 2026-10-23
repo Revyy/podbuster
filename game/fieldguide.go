@@ -35,15 +35,23 @@ const (
 type guideArchetypeText struct{ source, does, note string }
 
 var guideArchetypes = [4]guideArchetypeText{
-	{"ReplicaSet (Deployments) and any unrecognised controller",
-		"Homes in on the player. The baseline enemy.", ""},
-	{"StatefulSet",
-		"Stationary and immovable. Fires a ring of Bolts; the eye glows before each volley. Heavier tiers add rotation and an aimed Bolt.", ""},
-	{"DaemonSet",
-		"Orbits the player at range, then dashes in after its ring flashes. Heavier tiers orbit tighter and dash more often.", ""},
-	{"Job (covers CronJob)",
+	{
+		"ReplicaSet (Deployments) and any unrecognised controller",
+		"Homes in on the player. The baseline enemy.", "",
+	},
+	{
+		"StatefulSet",
+		"Stationary and immovable. Fires a ring of Bolts; the eye glows before each volley. Heavier tiers add rotation and an aimed Bolt.", "",
+	},
+	{
+		"DaemonSet",
+		"Orbits the player at range, then dashes in after its ring flashes. Heavier tiers orbit tighter and dash more often.", "",
+	},
+	{
+		"Job (covers CronJob)",
 		"Fragile. Winds up, charges in a straight line and overshoots. Heavier tiers charge faster and further.",
-		"Chaos: deleting a Job Pod may count against the Job's retry limit (backoffLimit)."},
+		"Chaos: deleting a Job Pod may count against the Job's retry limit (backoffLimit).",
+	},
 }
 
 // guidePod is one illustrative row of the last page's table.

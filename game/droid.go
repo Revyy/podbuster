@@ -148,7 +148,7 @@ func paletteFor(l droidLook, base droidPalette) droidPalette {
 func (p pen) ellipse(x, y, rx, ry float32, c color.Color) {
 	const n = 28
 	pts := make([]float32, 0, n*2)
-	for i := 0; i < n; i++ {
+	for i := range n {
 		a := float64(i) / n * 2 * math.Pi
 		pts = append(pts, x+rx*float32(math.Cos(a)), y+ry*float32(math.Sin(a)))
 	}
@@ -337,7 +337,7 @@ func drawDroid(p pen, arch Archetype, tier Tier, l droidLook) {
 		}
 		top.ringArc(16, 4.5, 0, math.Pi, rw, fade(rc, alpha))
 		top.ringArc(16, 4.5, math.Pi, 2*math.Pi, rw*0.6, fade(rc, alpha*0.5))
-		for k := 0; k < 3; k++ {
+		for k := range 3 {
 			a := l.tick*0.05 + float64(k)*2.09
 			top.circle(16*float32(math.Cos(a)), 4.5*float32(math.Sin(a)), 1.3, fade(pal.eye, alpha))
 		}

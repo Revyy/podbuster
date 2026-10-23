@@ -41,7 +41,7 @@ func TestDroidLookReflectsEnemyState(t *testing.T) {
 
 func TestEnemyHeadingFollowsMovement(t *testing.T) {
 	e := NewEnemy("pod-a", "ns", 0, 0)
-	for i := 0; i < 60; i++ {
+	for range 60 {
 		e.Update(1000, 0, 0, 0)
 	}
 	if e.HeadingX < 0.5 || e.HeadingY != 0 {

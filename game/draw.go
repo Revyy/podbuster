@@ -62,7 +62,7 @@ func (g *Game) drawModeSelect(screen *ebiten.Image) {
 	ebitenutil.DebugPrintAt(screen, markers[entryGuide]+"FIELD GUIDE   enemy archetypes (not a mode)", 230, 318)
 
 	if g.confirmingChaos {
-		vector.DrawFilledRect(screen, 130, 340, 540, 90, color.NRGBA{R: 60, G: 10, B: 10, A: 230}, false)
+		vector.FillRect(screen, 130, 340, 540, 90, color.NRGBA{R: 60, G: 10, B: 10, A: 230}, false)
 		ebitenutil.DebugPrintAt(screen, "This will DELETE real Pods in namespace "+g.config.Namespace+".", 150, 360)
 		ebitenutil.DebugPrintAt(screen, "Press ENTER again to confirm, ESC to back out.", 150, 385)
 	} else {
@@ -115,7 +115,7 @@ func (g *Game) drawHUD(screen *ebiten.Image) {
 	ebitenutil.DebugPrintAt(screen, fmt.Sprintf("%s: %d", counterLabel, g.scene.Kills()), 690, 28)
 
 	if g.chaosMode {
-		vector.DrawFilledRect(screen, 320, 4, 160, 22, color.NRGBA{R: 80, G: 0, B: 0, A: 220}, false)
+		vector.FillRect(screen, 320, 4, 160, 22, color.NRGBA{R: 80, G: 0, B: 0, A: 220}, false)
 		ebitenutil.DebugPrintAt(screen, "!! CHAOS MODE !!", 340, 10)
 	}
 }
@@ -132,7 +132,7 @@ func (g *Game) drawWeaponStatus(screen *ebiten.Image) {
 		barHeight   = 4.0
 	)
 
-	vector.DrawFilledRect(screen, panelX, panelY, panelWidth, panelHeight, colorWeaponPanel, false)
+	vector.FillRect(screen, panelX, panelY, panelWidth, panelHeight, colorWeaponPanel, false)
 	vector.StrokeRect(screen, panelX, panelY, panelWidth, panelHeight, 1, colorWeaponPanelBorder, false)
 	mainName, _, _ := weaponHUDStatus(g.player.MainWeapon)
 	secondaryName, remaining, total := weaponHUDStatus(g.player.SecondaryWeapon)
@@ -144,8 +144,8 @@ func (g *Game) drawWeaponStatus(screen *ebiten.Image) {
 	if ratio == 1 {
 		fill = colorWeaponCooldownReady
 	}
-	vector.DrawFilledRect(screen, barX, barY, barWidth, barHeight, colorHealthBack, false)
-	vector.DrawFilledRect(screen, barX, barY, float32(barWidth*ratio), barHeight, fill, false)
+	vector.FillRect(screen, barX, barY, barWidth, barHeight, colorHealthBack, false)
+	vector.FillRect(screen, barX, barY, float32(barWidth*ratio), barHeight, fill, false)
 }
 
 func (g *Game) drawRollStatus(screen *ebiten.Image) {
@@ -166,16 +166,16 @@ func (g *Game) drawRollStatus(screen *ebiten.Image) {
 		fill = colorWeaponCooldownReady
 	}
 
-	vector.DrawFilledRect(screen, panelX, panelY, panelWidth, panelHeight, colorWeaponPanel, false)
+	vector.FillRect(screen, panelX, panelY, panelWidth, panelHeight, colorWeaponPanel, false)
 	vector.StrokeRect(screen, panelX, panelY, panelWidth, panelHeight, 1, colorWeaponPanelBorder, false)
 	ebitenutil.DebugPrintAt(screen, "Z      Roll", int(panelX)+6, int(panelY)+2)
-	vector.DrawFilledRect(screen, barX, barY, barWidth, barHeight, colorHealthBack, false)
-	vector.DrawFilledRect(screen, barX, barY, float32(barWidth*ratio), barHeight, fill, false)
+	vector.FillRect(screen, barX, barY, barWidth, barHeight, colorHealthBack, false)
+	vector.FillRect(screen, barX, barY, float32(barWidth*ratio), barHeight, fill, false)
 }
 
 func (g *Game) drawHealthBar(screen *ebiten.Image) {
 	const barWidth, barHeight = 140.0, 14.0
-	vector.DrawFilledRect(screen, 8, 8, barWidth, barHeight, colorHealthBack, false)
+	vector.FillRect(screen, 8, 8, barWidth, barHeight, colorHealthBack, false)
 
 	ratio := float64(g.player.Health) / float64(PlayerMaxHealth)
 	if ratio < 0 {
@@ -185,7 +185,7 @@ func (g *Game) drawHealthBar(screen *ebiten.Image) {
 	if ratio <= 0.3 {
 		fill = colorHealthLow
 	}
-	vector.DrawFilledRect(screen, 8, 8, float32(barWidth*ratio), barHeight, fill, false)
+	vector.FillRect(screen, 8, 8, float32(barWidth*ratio), barHeight, fill, false)
 	ebitenutil.DebugPrintAt(screen, fmt.Sprintf("HP %d/%d", g.player.Health, PlayerMaxHealth), 156, 8)
 }
 
@@ -208,7 +208,7 @@ func weaponHUDStatus(weapon Weapon) (name string, remaining, total int) {
 }
 
 func (g *Game) drawGameOver(screen *ebiten.Image) {
-	vector.DrawFilledRect(screen, 0, 0, screenWidth, screenHeight, color.NRGBA{R: 0, G: 0, B: 0, A: 170}, false)
+	vector.FillRect(screen, 0, 0, screenWidth, screenHeight, color.NRGBA{R: 0, G: 0, B: 0, A: 170}, false)
 	ebitenutil.DebugPrintAt(screen, "G A M E   O V E R", 335, 250)
 
 	summary := fmt.Sprintf("Kills: %d", g.scene.Kills())
@@ -220,7 +220,7 @@ func (g *Game) drawGameOver(screen *ebiten.Image) {
 	ebitenutil.DebugPrintAt(screen, "ESC to return to the title screen", 300, 340)
 
 	if g.chaosMode {
-		vector.DrawFilledRect(screen, 285, 370, 240, 20, color.NRGBA{R: 60, G: 0, B: 0, A: 200}, false)
+		vector.FillRect(screen, 285, 370, 240, 20, color.NRGBA{R: 60, G: 0, B: 0, A: 200}, false)
 		ebitenutil.DebugPrintAt(screen, "Chaos mode is still active on retry.", 290, 373)
 	}
 }

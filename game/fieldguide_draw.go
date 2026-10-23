@@ -44,7 +44,7 @@ func guideTierSize(t Tier) float32 { return float32(t.stats().size) }
 func wrapText(s string, cols int) []string {
 	var out []string
 	line := ""
-	for _, w := range strings.Fields(s) {
+	for w := range strings.FieldsSeq(s) {
 		switch {
 		case line == "":
 			line = w
@@ -89,7 +89,7 @@ func (f *fieldGuide) block(dst *ebiten.Image, s string, x, y float64, c color.Co
 }
 
 func guidePanel(dst *ebiten.Image, x, y, w, h float32, border color.Color) *ebiten.Image {
-	vector.DrawFilledRect(dst, x, y, w, h, color.NRGBA{R: 12, G: 15, B: 30, A: 255}, false)
+	vector.FillRect(dst, x, y, w, h, color.NRGBA{R: 12, G: 15, B: 30, A: 255}, false)
 	vector.StrokeRect(dst, x, y, w, h, 1, border, false)
 	return dst.SubImage(image.Rect(int(x)+1, int(y)+1, int(x+w)-1, int(y+h)-1)).(*ebiten.Image)
 }
@@ -123,7 +123,7 @@ func guideDroid(dst *ebiten.Image, cx, cy, scale float32, a Archetype, t Tier, s
 }
 
 func (f *fieldGuide) draw(screen *ebiten.Image) {
-	vector.DrawFilledRect(screen, 0, 0, screenWidth, screenHeight, color.NRGBA{R: 6, G: 8, B: 18, A: 255}, false)
+	vector.FillRect(screen, 0, 0, screenWidth, screenHeight, color.NRGBA{R: 6, G: 8, B: 18, A: 255}, false)
 	f.label(screen, "FIELD GUIDE - "+guidePageTitles[f.page], guideMargin, 12, 2, guideColText)
 	pg := fmt.Sprintf("page %d/%d", f.page+1, guidePageCount)
 	f.label(screen, pg, guideRight-float64(len(pg)*6), 20, 1, guideColDim)
@@ -144,7 +144,7 @@ func (f *fieldGuide) draw(screen *ebiten.Image) {
 		f.drawPodsPage(screen)
 		keys = "[Up/Down] choose a Pod"
 	}
-	vector.DrawFilledRect(screen, 0, 560, screenWidth, 40, color.NRGBA{R: 20, G: 24, B: 44, A: 255}, false)
+	vector.FillRect(screen, 0, 560, screenWidth, 40, color.NRGBA{R: 20, G: 24, B: 44, A: 255}, false)
 	f.label(screen, keys, guideMargin, 566, 1, guideColText)
 	f.label(screen, "[Left/Right] page  [Esc/Backspace] back to mode select", guideMargin, 582, 1, guideColDim)
 }
@@ -220,8 +220,8 @@ func (d *guideDemo) caption() string {
 // drawBoltAt draws one Bolt, scaled from its in-game size.
 func drawBoltAt(dst *ebiten.Image, x, y, scale float32, a Archetype) {
 	pal := droidPalettes[a]
-	vector.DrawFilledCircle(dst, x, y, boltSize*scale, withAlpha(pal.hull, 70), false)
-	vector.DrawFilledCircle(dst, x, y, boltSize/2*scale, pal.light, false)
+	vector.FillCircle(dst, x, y, boltSize*scale, withAlpha(pal.hull, 70), false)
+	vector.FillCircle(dst, x, y, boltSize/2*scale, pal.light, false)
 }
 
 func (f *fieldGuide) drawTiersPage(screen *ebiten.Image) {
@@ -245,7 +245,7 @@ func (f *fieldGuide) drawTiersPage(screen *ebiten.Image) {
 	const cy = 440
 	guideDroid(clip, 400, cy, 2.6, ArchetypeTurret, TierStandard, symptomLook{eyeLevel: 1}, f.tick, 1)
 	run := float32(f.tick % 220)
-	for a := Archetype(0); a < 4; a++ {
+	for a := range Archetype(4) {
 		drawBoltAt(clip, 60+run*3.2-float32(a)*40, cy-60+float32(a)*30, 1.5, a)
 	}
 	vector.StrokeCircle(screen, 700, cy, 22, 2, guideColYou, true)
@@ -303,7 +303,7 @@ func (f *fieldGuide) drawPodsPage(screen *ebiten.Image) {
 	for i, p := range guidePods {
 		y := hy + 26 + i*rowH
 		if i == f.row {
-			vector.DrawFilledRect(screen, guideMargin, float32(y), 752, 34, color.NRGBA{R: 30, G: 40, B: 80, A: 255}, false)
+			vector.FillRect(screen, guideMargin, float32(y), 752, 34, color.NRGBA{R: 30, G: 40, B: 80, A: 255}, false)
 			ebitenutil.DebugPrintAt(screen, ">", 28, y+9)
 		}
 		ready := "1/1"

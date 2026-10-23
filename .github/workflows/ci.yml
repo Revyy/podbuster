@@ -1,0 +1,43 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  lint:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-go@v5
+        with:
+          go-version-file: go.mod
+      - name: Install Ebitengine build dependencies
+        run: sudo apt-get update && sudo apt-get install -y --no-install-recommends libgl1-mesa-dev libxcursor-dev libxi-dev libxinerama-dev libxrandr-dev libxxf86vm-dev
+      - uses: actions/cache@v4
+        with:
+          path: |
+            .bin
+            ~/.cache/golangci-lint
+          key: golangci-lint-${{ runner.os }}-${{ hashFiles('Makefile', 'go.sum') }}
+          restore-keys: golangci-lint-${{ runner.os }}-
+      - run: make lint
+
+  test:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-go@v5
+        with:
+          go-version-file: go.mod
+      - name: Install Ebitengine build dependencies
+        run: sudo apt-get update && sudo apt-get install -y --no-install-recommends libgl1-mesa-dev libxcursor-dev libxi-dev libxinerama-dev libxrandr-dev libxxf86vm-dev
+      - run: make test

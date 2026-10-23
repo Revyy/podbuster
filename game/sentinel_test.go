@@ -37,7 +37,7 @@ func TestSentinel_OrbitsAtTierRadiusAtCruiseSpeed(t *testing.T) {
 		r := tier.sentinelStats().radius
 		var travelled float64
 		// Stay within the telegraph-free part of the first interval.
-		for i := 0; i < 100; i++ {
+		for i := range 100 {
 			x, y := s.X, s.Y
 			scene.Update(p)
 			travelled += math.Hypot(s.X-x, s.Y-y)
@@ -184,7 +184,7 @@ func TestSentinel_RevertRestartsTimers(t *testing.T) {
 	if s.Telegraph != 0 || s.Lunging() {
 		t.Fatal("revert should clear telegraph and lunge")
 	}
-	for i := 0; i < 180-1; i++ {
+	for i := range 180 - 1 {
 		scene.Update(p)
 		if s.Lunging() {
 			t.Fatalf("dashed at tick %d after revert", i+1)

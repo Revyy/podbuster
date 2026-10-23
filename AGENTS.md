@@ -22,7 +22,18 @@ go run . --namespace=default
 
 # Run the test suite.
 go test ./...
+
+# Validate before opening a PR. CI runs these same targets.
+make check   # make lint + make test
+make lint    # go mod tidy -diff, golangci-lint fmt --diff, golangci-lint run
+make test    # go build ./... and go test -race ./...
+make fmt     # apply go mod tidy, formatters and golangci-lint autofixes
 ```
+
+Run `make check` and get it green before creating a PR. `make lint` installs the pinned
+golangci-lint version into `.bin/` on first use. The linter set lives in `.golangci.yml`, which
+also enforces convention 2 through `depguard`. On Linux, building Ebitengine needs the X11 and GL
+headers that `.github/workflows/ci.yml` installs.
 
 The module requires Go 1.26.3. Chaos mode is deliberately not a CLI flag: the player selects it
 in-game and confirms it with a second input. See

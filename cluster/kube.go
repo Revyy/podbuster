@@ -74,7 +74,7 @@ func (k *KubeClient) Watch(ctx context.Context, namespace string) (<-chan PodEve
 	ch := make(chan PodEvent, 100)
 
 	registration, err := podInformer.AddEventHandler(cache.ResourceEventHandlerFuncs{
-		AddFunc: func(obj interface{}) {
+		AddFunc: func(obj any) {
 			pod, ok := obj.(*corev1.Pod)
 			if !ok {
 				return
@@ -84,7 +84,7 @@ func (k *KubeClient) Watch(ctx context.Context, namespace string) (<-chan PodEve
 			case <-ctx.Done():
 			}
 		},
-		UpdateFunc: func(oldObj, newObj interface{}) {
+		UpdateFunc: func(oldObj, newObj any) {
 			pod, ok := newObj.(*corev1.Pod)
 			if !ok {
 				return
@@ -94,7 +94,7 @@ func (k *KubeClient) Watch(ctx context.Context, namespace string) (<-chan PodEve
 			case <-ctx.Done():
 			}
 		},
-		DeleteFunc: func(obj interface{}) {
+		DeleteFunc: func(obj any) {
 			pod, ok := obj.(*corev1.Pod)
 			if !ok {
 				tombstone, ok := obj.(cache.DeletedFinalStateUnknown)
