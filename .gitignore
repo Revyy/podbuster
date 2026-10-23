@@ -1,0 +1,15 @@
+# Binaries
+podbuster
+podbuster.exe
+
+# Worktrees
+.worktrees/
+
+# SDD workspaces
+.superpowers/
+
+# OS
+.DS_Store
+
+# Verification runs (verify-podbuster skill)
+.verify/

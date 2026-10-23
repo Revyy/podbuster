@@ -1,0 +1,242 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: target-1
+  labels:
+    app.kubernetes.io/name: podbuster-target
+    app.kubernetes.io/instance: target-1
+    app.kubernetes.io/part-of: podbuster
+    podbuster.github.com/chaos-playground: "true"
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: podbuster-target
+      app.kubernetes.io/instance: target-1
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: podbuster-target
+        app.kubernetes.io/instance: target-1
+        app.kubernetes.io/part-of: podbuster
+        podbuster.github.com/chaos-playground: "true"
+    spec:
+      containers:
+        - name: pause
+          image: registry.k8s.io/pause:3.10
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: target-2
+  labels:
+    app.kubernetes.io/name: podbuster-target
+    app.kubernetes.io/instance: target-2
+    app.kubernetes.io/part-of: podbuster
+    podbuster.github.com/chaos-playground: "true"
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: podbuster-target
+      app.kubernetes.io/instance: target-2
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: podbuster-target
+        app.kubernetes.io/instance: target-2
+        app.kubernetes.io/part-of: podbuster
+        podbuster.github.com/chaos-playground: "true"
+    spec:
+      containers:
+        - name: pause
+          image: registry.k8s.io/pause:3.10
+          resources:
+            requests:
+              cpu: 10m
+              memory: 16Mi
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: target-3
+  labels:
+    app.kubernetes.io/name: podbuster-target
+    app.kubernetes.io/instance: target-3
+    app.kubernetes.io/part-of: podbuster
+    podbuster.github.com/chaos-playground: "true"
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: podbuster-target
+      app.kubernetes.io/instance: target-3
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: podbuster-target
+        app.kubernetes.io/instance: target-3
+        app.kubernetes.io/part-of: podbuster
+        podbuster.github.com/chaos-playground: "true"
+    spec:
+      containers:
+        - name: pause
+          image: registry.k8s.io/pause:3.10
+          resources:
+            requests:
+              cpu: 50m
+              memory: 64Mi
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: target-4
+  labels:
+    app.kubernetes.io/name: podbuster-target
+    app.kubernetes.io/instance: target-4
+    app.kubernetes.io/part-of: podbuster
+    podbuster.github.com/chaos-playground: "true"
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: podbuster-target
+      app.kubernetes.io/instance: target-4
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: podbuster-target
+        app.kubernetes.io/instance: target-4
+        app.kubernetes.io/part-of: podbuster
+        podbuster.github.com/chaos-playground: "true"
+    spec:
+      containers:
+        - name: pause
+          image: registry.k8s.io/pause:3.10
+          resources:
+            requests:
+              cpu: 50m
+              memory: 64Mi
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: target-5
+  labels:
+    app.kubernetes.io/name: podbuster-target
+    app.kubernetes.io/instance: target-5
+    app.kubernetes.io/part-of: podbuster
+    podbuster.github.com/chaos-playground: "true"
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: podbuster-target
+      app.kubernetes.io/instance: target-5
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: podbuster-target
+        app.kubernetes.io/instance: target-5
+        app.kubernetes.io/part-of: podbuster
+        podbuster.github.com/chaos-playground: "true"
+    spec:
+      containers:
+        - name: pause
+          image: registry.k8s.io/pause:3.10
+          resources:
+            requests:
+              cpu: 250m
+              memory: 256Mi
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: target-sts
+  labels:
+    app.kubernetes.io/name: podbuster-target
+    app.kubernetes.io/instance: target-sts
+    app.kubernetes.io/part-of: podbuster
+    podbuster.github.com/chaos-playground: "true"
+spec:
+  replicas: 2
+  serviceName: target-sts
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: podbuster-target
+      app.kubernetes.io/instance: target-sts
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: podbuster-target
+        app.kubernetes.io/instance: target-sts
+        app.kubernetes.io/part-of: podbuster
+        podbuster.github.com/chaos-playground: "true"
+    spec:
+      containers:
+        - name: pause
+          image: registry.k8s.io/pause:3.10
+          resources:
+            requests:
+              cpu: 50m
+              memory: 64Mi
+---
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: target-ds
+  labels:
+    app.kubernetes.io/name: podbuster-target
+    app.kubernetes.io/instance: target-ds
+    app.kubernetes.io/part-of: podbuster
+    podbuster.github.com/chaos-playground: "true"
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: podbuster-target
+      app.kubernetes.io/instance: target-ds
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: podbuster-target
+        app.kubernetes.io/instance: target-ds
+        app.kubernetes.io/part-of: podbuster
+        podbuster.github.com/chaos-playground: "true"
+    spec:
+      containers:
+        - name: pause
+          image: registry.k8s.io/pause:3.10
+          resources:
+            requests:
+              cpu: 10m
+              memory: 16Mi
+---
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: target-job
+  labels:
+    app.kubernetes.io/name: podbuster-target
+    app.kubernetes.io/instance: target-job
+    app.kubernetes.io/part-of: podbuster
+    podbuster.github.com/chaos-playground: "true"
+spec:
+  parallelism: 2
+  completions: 2
+  backoffLimit: 100
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: podbuster-target
+        app.kubernetes.io/instance: target-job
+        app.kubernetes.io/part-of: podbuster
+        podbuster.github.com/chaos-playground: "true"
+    spec:
+      restartPolicy: OnFailure
+      containers:
+        - name: pause
+          image: registry.k8s.io/pause:3.10
+          resources:
+            requests:
+              cpu: 250m
+              memory: 256Mi
