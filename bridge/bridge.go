@@ -4,7 +4,6 @@ import (
 	"context"
 	"log"
 	"slices"
-	"sort"
 
 	"github.com/revyy/podbuster/cluster"
 	"github.com/revyy/podbuster/game"
@@ -104,7 +103,7 @@ func median(known map[string]cluster.PodInfo, value func(cluster.PodInfo) int64)
 	if len(values) == 0 {
 		return 0
 	}
-	sort.Slice(values, func(i, j int) bool { return values[i] < values[j] })
+	slices.Sort(values)
 	mid := len(values) / 2
 	if len(values)%2 == 1 {
 		return float64(values[mid])

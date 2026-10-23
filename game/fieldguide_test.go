@@ -144,7 +144,7 @@ func TestSymptomPose(t *testing.T) {
 		t.Fatalf("a ready Pod must not flicker, got %+v", l)
 	}
 	flickered := false
-	for tick := uint64(0); tick < 300; tick++ {
+	for tick := range uint64(300) {
 		if symptomPose(Symptoms{}, 0, tick, 1).eyeLevel < 1 {
 			flickered = true
 		}
@@ -190,7 +190,7 @@ func TestFieldGuide_SmokeDrawsEveryPage(t *testing.T) {
 	g.modeCursor = entryGuide
 	g.handleModeSelect(menuKeys{enter: true})
 	img := ebitenNewImage()
-	for p := 0; p < guidePageCount; p++ {
+	for range guidePageCount {
 		for range 5 {
 			g.handleFieldGuide(menuKeys{})
 			g.Draw(img)

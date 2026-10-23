@@ -163,9 +163,18 @@ func TestSeparation_ConvergingEnemiesNeverOverlap(t *testing.T) {
 	scene := NewScene(make(chan GameEvent), make(chan KillEvent, 32))
 	scene.BeginSession(1, false)
 	for i, pos := range [][2]float64{
-		{100, 100}, {700, 100}, {100, 500}, {700, 500},
-		{400, 50}, {400, 550}, {50, 300}, {750, 300},
-		{200, 200}, {600, 200}, {200, 400}, {600, 400},
+		{100, 100},
+		{700, 100},
+		{100, 500},
+		{700, 500},
+		{400, 50},
+		{400, 550},
+		{50, 300},
+		{750, 300},
+		{200, 200},
+		{600, 200},
+		{200, 400},
+		{600, 400},
 	} {
 		scene.enemies = append(scene.enemies, NewEnemy(
 			"pod-"+string(rune('a'+i)), "default", pos[0], pos[1],

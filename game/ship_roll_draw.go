@@ -60,7 +60,7 @@ func (p rollShipPen) mirror(c color.Color, pts ...float32) {
 func (p rollShipPen) ellipse(x, y, rx, ry float32, c color.Color) {
 	const steps = 24
 	pts := make([]float32, 0, steps*2)
-	for i := 0; i < steps; i++ {
+	for i := range steps {
 		a := 2 * math.Pi * float64(i) / steps
 		pts = append(pts,
 			x+rx*float32(math.Cos(a)),

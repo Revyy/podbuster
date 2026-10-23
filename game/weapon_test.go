@@ -129,7 +129,7 @@ func TestRocketWeapon_CooldownBlocksRefireUntilExpiry(t *testing.T) {
 	weapon := NewRocketWeapon()
 	weapon.Fire(100, 100, -math.Pi/2)
 
-	for tick := 0; tick < rocketCooldown; tick++ {
+	for tick := range rocketCooldown {
 		if weapon.CanFire() {
 			t.Fatalf("expected the volley to still be cooling down at tick %d", tick)
 		}
